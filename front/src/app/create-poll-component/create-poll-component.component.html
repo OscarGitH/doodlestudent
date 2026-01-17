@@ -91,21 +91,40 @@
     <div *ngIf="step==2"  class="stepsdemo-content">
       <p-card>
       <ng-template pTemplate="content">
-          Le sondage est créé. <BR>
-          Le lien pour participer est <a [href]="urlsondage" target="_blank">{{urlsondage}} </a>. <BR>
-          Le lien d'administration est <a [href]="urlsondageadmin" target="_blank">{{urlsondageadmin}}</a>.<BR>
-          Un salon a été créé de discussion pour cette réunion est accessible à cette adresse <a [href]="urlsalon" target="_blank">{{urlsalon}}</a>.<BR>
-          <span *ngIf="urlpad">Un pad a été créé pour cette réunion <a [href]="urlpad" target="_blank">{{urlpad}}</a>.</span><BR>
-              <BR>
+        Le sondage est créé. <BR>
+        Le lien pour participer est <a [href]="urlsondage" target="_blank">{{urlsondage}} </a>. <BR>
+        Le lien d'administration est <a [href]="urlsondageadmin" target="_blank">{{urlsondageadmin}}</a>.<BR>
+        Un salon a été créé de discussion pour cette réunion est accessible à cette adresse <a [href]="urlsalon" target="_blank">{{urlsalon}}</a>.<BR>
+        <span *ngIf="urlpad">Un pad a été créé pour cette réunion <a [href]="urlpad" target="_blank">{{urlpad}}</a>.</span><BR>
+        <div class="qr-section">
+          <p>
+            QR code pour accéder rapidement au sondage :
+          </p>
+
+          <qrcode
+            id="qrcode"
+            [qrdata]="urlsondage"
+            [width]="256"
+            [errorCorrectionLevel]="'M'"
+            [elementType]="'canvas'"
+          >
+          </qrcode>
+
+          <div class="qr-buttons">
+            <p-button label="Télécharger le QR Code" (onClick)="downloadQRCode($event)" icon="pi pi-download"></p-button>
+            <p-button label="Partager le sondage" (onClick)="share(urlsondage)" icon="pi pi-share-alt"></p-button>
+          </div>
+        </div>
       </ng-template>
-            <ng-template pTemplate="footer">
-              <div>
-                  <p-button label="Back" (onClick)="prevPage1()" icon="pi pi-angle-left"></p-button>
-              </div>
+        <ng-template pTemplate="footer">
+          <div>
+            <p-button label="Back" (onClick)="prevPage1()" icon="pi pi-angle-left"></p-button>
+          </div>
 
 
-          </ng-template>
-        </p-card>
-    </div>
+        </ng-template>
+    </p-card>
+  </div>
+
 
 </div>

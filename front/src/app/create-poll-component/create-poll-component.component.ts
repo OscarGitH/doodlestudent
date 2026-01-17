@@ -384,4 +384,48 @@ export class CreatePollComponentComponent implements OnInit {
     );
 
   }
+
+  async downloadQRCode(event: Event): Promise<void> {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const qrCodeElement = document.getElementById('qrcode');
+    if (!qrCodeElement) { return; }
+
+    let dataUrl: string | null = null;
+
+    const canvas = qrCodeElement.querySelector('canvas');
+    if (canvas) {
+      dataUrl = canvas.toDataURL('image/png');
+    } else {
+      const img = qrCodeElement.querySelector('img') as HTMLImageElement;
+      if (img && img.src) { dataUrl = img.src; }
+    }
+
+    if (!dataUrl) { return; }
+
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = 'sondage_qrcode.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  async share(url: string): Promise<void> {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Invitation au sondage',
+          text: 'Participez au sondage via ce lien',
+          url
+        });
+      } catch (e) {
+        console.error(`Error sharing: ${e}`);
+      }
+    } else {
+      console.log('Web Share API not supported.');
+      alert('Le partage n’est pas supporté sur ce navigateur');
+    }
+  }
 }

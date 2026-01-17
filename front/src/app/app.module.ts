@@ -40,6 +40,7 @@ import { Selecteddate4userPipePipe } from './selecteddate4user-pipe.pipe';
 import { ModalPollClosComponent } from './modal-poll-clos/modal-poll-clos.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { ShowCommentsComponent } from './show-comments/show-comments.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 registerLocaleData(localeFr, 'fr');
 @NgModule({
@@ -76,7 +77,8 @@ registerLocaleData(localeFr, 'fr');
     SelectButtonModule,
     MenubarModule,
     CheckboxModule,
-    NgbModule
+    NgbModule,
+    QRCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent],
